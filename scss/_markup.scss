@@ -1,0 +1,230 @@
+/* ----- top background ----- */
+.art-top-bg {
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  background-position: center;
+  height: 400px;
+  background-size: cover;
+
+  & .art-top-bg-overlay {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    background-image: $top-bg-gradient;
+  }
+}
+/* ----- preloader ----- */
+.art-preloader {
+  margin: 15px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(100vw - 30px);
+  height: calc(100vh - 30px);
+  background: $info-bar-1-color;
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & .art-preloader-content {
+    margin-bottom: 15px;
+    text-align: center;
+
+    & .art-preloader-load {
+      margin-top: 5px;
+      width: 200px;
+
+      & .progressbar-text {
+        position: relative;
+        font-size: 14px;
+        font-weight: 400 !important;
+        color: $text-color-2 !important;
+        height: 300px;
+        line-height: 350px;
+      }
+    }
+  }
+}
+.art-preloader-load {
+  & path {
+    &:first-child {
+      stroke: $deep-color;
+    }
+    &:last-child {
+      stroke: $main-color;
+    }
+  }
+}
+/* ----- scroll frame ----- */
+.art-scroll-frame {
+  width: 100%;
+  height: calc(100vh - 30px);
+}
+
+.scrollbar-track {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+/* ----- app ----- */
+.art-app {
+  padding: 15px;
+  background: $deep-color;
+  width: 100vw;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+
+  & * {
+    scrollbar-width: none;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  & .art-app-wrapper {
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+    background: $content-color;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    box-shadow: $shadow-1;
+
+    & .art-app-container {
+      position: relative;
+      display: flex;
+      flex-wrap: nowrap;
+      /* ----- content ----- */
+      & .art-content {
+        position: relative;
+        overflow: hidden;
+        width: 100vw;
+        height: calc(100vh - 30px);
+        padding-right: 80px;
+        transition: $tr-lg;
+
+        & .art-curtain {
+          background: $content-color-s-light;
+          position: absolute;
+          z-index: 9;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          pointer-events: none;
+          opacity: 0;
+          transition: $tr-lg;
+        }
+
+        &.art-active {
+          transform: translateX(-150px);
+
+          & .art-curtain {
+            pointer-events: all;
+            opacity: 0.7;
+          }
+        }
+      }
+    }
+  }
+}
+/* ------------------------------
+app marcup (after 920px)
+------------------------------ */
+@media (max-width: 920px) {
+  /* ----- container ----- */
+  .container-fluid {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  /* ----- preloader ----- */
+  .art-preloader {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+  }
+  /* ----- scroll frame ----- */
+  .art-scroll-frame {
+    height: 100vh;
+  }
+
+  .art-app {
+    padding: 0;
+    & .art-app-wrapper {
+      border-radius: 0;
+      height: 100vh;
+
+      & .art-app-container {
+        width: 100%;
+        /* ----- info bar ----- */
+        & .art-info-bar {
+          position: absolute;
+          left: -290px;
+          width: 290px;
+          height: 100vh;
+
+          &.art-active {
+            transform: translateX(290px);
+          }
+
+          & .art-info-bar-frame {
+            & .art-info-bar-header {
+              display: flex;
+
+              & .art-info-bar-btn {
+                transform: translateX(70px);
+                transition: $tr-md;
+              }
+            }
+          }
+
+          &.art-active {
+            & .art-info-bar-frame {
+              & .art-info-bar-btn {
+                transform: translateX(0);
+              }
+            }
+          }
+        }
+        /* ----- content ----- */
+        & .art-content {
+          position: relative;
+          width: 100vw;
+          height: 100vh;
+          padding-right: 0;
+          padding-top: 70px;
+
+          .art-scroll-frame {
+            height: calc(100vh - 70px);
+          }
+
+          &.art-active {
+            transform: none;
+
+            & .art-curtain {
+              pointer-events: all;
+              opacity: 1;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.art-app-onepage {
+  & .art-app-wrapper {
+    & .art-app-container {
+      & .art-content {
+        padding-right: 0;
+      }
+    }
+  }
+}
